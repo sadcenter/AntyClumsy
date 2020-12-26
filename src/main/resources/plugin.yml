@@ -1,0 +1,7 @@
+name: sadcenterClumsy
+version: 1.0-UNSUPPORTED
+main: xyz.sadcenter.clumsy.ClumsyPlugin
+author: sadcenter
+description: Plugin zostal w pelni wykonany przez sadcenter, edytowanie autora pluginu wiaze sie z zlamaniem licencji "apache2 license"
+depend:
+  - ProtocolLib

@@ -1,0 +1,8 @@
+xyz\sadcenter\clumsy\ClumsyPlugin.class
+xyz\sadcenter\clumsy\listeners\PlayerQuitListener.class
+xyz\sadcenter\clumsy\runnable\PPSCheckerRunnable.class
+xyz\sadcenter\clumsy\basic\KeepAlive.class
+xyz\sadcenter\clumsy\listeners\PlayerMoveListener.class
+xyz\sadcenter\clumsy\runnable\PingCheckerRunnable.class
+xyz\sadcenter\clumsy\listeners\KeepAliveListener.class
+xyz\sadcenter\clumsy\runnable\KeepAliveCheckerRunnable.class
