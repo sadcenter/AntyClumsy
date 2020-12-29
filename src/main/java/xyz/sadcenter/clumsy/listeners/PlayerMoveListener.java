@@ -30,8 +30,7 @@ public final class PlayerMoveListener implements Listener {
                 return;
             }
 
-            int increment = integer.incrementAndGet();
-            integer.set(increment);
+            integer.set(integer.incrementAndGet());
 
 
         });
