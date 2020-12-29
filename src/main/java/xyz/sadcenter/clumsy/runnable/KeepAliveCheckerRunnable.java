@@ -29,27 +29,27 @@ public final class KeepAliveCheckerRunnable implements Runnable {
                 return;
             }
 
-            if(this.plugin.getWarnings().contains(uniqueId)) {
+            if (this.plugin.getWarnings().contains(uniqueId)) {
                 return;
             }
 
-            if (keepAlive.getTime() < System.currentTimeMillis() - (TimeUnit.SECONDS.toMillis(this.plugin.getInteger("keepAliveSeconds")) + (TimeUnit.MILLISECONDS.toMillis(this.plugin.getInteger("keepAliveMiliseconds"))))) {
-                this.plugin.getWarnings().add(uniqueId);
+            if (keepAlive.getTime() > System.currentTimeMillis() - (TimeUnit.SECONDS.toMillis(this.plugin.getInteger("keepAliveSeconds")) + (TimeUnit.MILLISECONDS.toMillis(this.plugin.getInteger("keepAliveMiliseconds")))))
+                return;
 
-                player.teleport(keepAlive.getLocation());
+            this.plugin.getWarnings().add(uniqueId);
 
-                Bukkit.broadcast(
-                        StringUtils.replace(ChatColor.translateAlternateColorCodes('&',
-                                this.plugin.getString("message")), "{PLAYER}", player.getName()),
-                        this.plugin.getString("message-perm"));
+            player.teleport(keepAlive.getLocation());
 
-                String command = this.plugin.getString("command");
-                if(!command.equalsIgnoreCase("null")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.replace(command, "{PLAYER}", player.getName()));
-                }
+            Bukkit.broadcast(
+                    StringUtils.replace(ChatColor.translateAlternateColorCodes('&',
+                            this.plugin.getString("message")), "{PLAYER}", player.getName()),
+                    this.plugin.getString("message-perm"));
+
+            String command = this.plugin.getString("command");
+            if (!command.equalsIgnoreCase("null")) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.replace(command, "{PLAYER}", player.getName()));
             }
         });
 
     }
-
 }

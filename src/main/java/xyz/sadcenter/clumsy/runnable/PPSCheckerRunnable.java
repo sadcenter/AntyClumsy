@@ -7,8 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import xyz.sadcenter.clumsy.ClumsyPlugin;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * @author sadcenter on 26.12.2020
  * @project KeepAlive
@@ -22,19 +20,22 @@ public final class PPSCheckerRunnable implements Runnable {
     public void run() {
         this.plugin.getPlayerMovePPS().forEach((uuid, packets) -> {
             Player player = Bukkit.getPlayer(uuid);
-            if(packets.get() > plugin.getInteger("maxPlayerMovePPS")) {
-                Bukkit.broadcast(
-                        StringUtils.replace(ChatColor.translateAlternateColorCodes('&',
-                                this.plugin.getString("message")), "{PLAYER}", player.getName()),
-                        this.plugin.getString("message-perm"));
+            if (packets.get() < plugin.getInteger("maxPlayerMovePPS"))
+                return;
 
-                String command = this.plugin.getString("command");
-                if(!command.equalsIgnoreCase("null")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.replace(command, "{PLAYER}", player.getName()));
-                }
+            Bukkit.broadcast(
+                    StringUtils.replace(ChatColor.translateAlternateColorCodes('&',
+                            this.plugin.getString("message")), "{PLAYER}", player.getName()),
+                    this.plugin.getString("message-perm"));
+
+            String command = this.plugin.getString("command");
+            if (!command.equalsIgnoreCase("null")) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.replace(command, "{PLAYER}", player.getName()));
             }
-                this.plugin.getPlayerMovePPS().put(uuid, new AtomicInteger());
-        });
-    }
+            packets.set(0);
 
+        });
+
+
+    }
 }

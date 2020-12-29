@@ -20,16 +20,17 @@ public final class PingCheckerRunnable implements Runnable {
     public void run() {
         Bukkit.getOnlinePlayers().forEach(player -> {
             int ping = ((CraftPlayer) player).getHandle().ping;
-            if (ping > plugin.getInteger("maxAcceptablePing")) {
-                Bukkit.broadcast(
-                        StringUtils.replace(ChatColor.translateAlternateColorCodes('&',
-                                this.plugin.getString("message")), "{PLAYER}", player.getName()),
-                        this.plugin.getString("message-perm"));
+            if (ping < plugin.getInteger("maxAcceptablePing"))
+                return;
 
-                String command = this.plugin.getString("command");
-                if (!command.equalsIgnoreCase("null")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.replace(command, "{PLAYER}", player.getName()));
-                }
+            Bukkit.broadcast(
+                    StringUtils.replace(ChatColor.translateAlternateColorCodes('&',
+                            this.plugin.getString("message")), "{PLAYER}", player.getName()),
+                    this.plugin.getString("message-perm"));
+
+            String command = this.plugin.getString("command");
+            if (!command.equalsIgnoreCase("null")) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.replace(command, "{PLAYER}", player.getName()));
             }
         });
     }

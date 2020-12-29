@@ -31,8 +31,8 @@ public final class PlayerMoveListener implements Listener {
             }
 
             int increment = integer.incrementAndGet();
-            this.plugin.getPlayerMovePPS().remove(player.getUniqueId());
-            this.plugin.getPlayerMovePPS().put(player.getUniqueId(), new AtomicInteger(increment));
+            System.out.println(increment);
+            integer.set(increment);
 
 
         });
