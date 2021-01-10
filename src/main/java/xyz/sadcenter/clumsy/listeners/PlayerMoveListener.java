@@ -21,7 +21,6 @@ public final class PlayerMoveListener implements Listener {
 
     @EventHandler
     public void run(PlayerMoveEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
             Player player = event.getPlayer();
             AtomicInteger integer = this.plugin.getPlayerMovePPS().get(player.getUniqueId());
 
@@ -33,7 +32,6 @@ public final class PlayerMoveListener implements Listener {
             integer.set(integer.incrementAndGet());
 
 
-        });
     }
 
 }
