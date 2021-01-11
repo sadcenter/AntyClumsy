@@ -22,14 +22,8 @@ public final class PlayerMoveListener implements Listener {
     @EventHandler
     public void run(PlayerMoveEvent event) {
             Player player = event.getPlayer();
-            AtomicInteger integer = this.plugin.getPlayerMovePPS().get(player.getUniqueId());
-
-            if (integer == null) {
-                this.plugin.getPlayerMovePPS().put(player.getUniqueId(), new AtomicInteger());
-                return;
-            }
-
-            integer.set(integer.incrementAndGet());
+            AtomicInteger atomicInteger = this.plugin.getPlayerMovePPS().computeIfAbsent(player.getUniqueId(), uuid -> new AtomicInteger());
+            atomicInteger.set(atomicInteger.get() + 1);
 
 
     }
