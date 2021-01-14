@@ -20,7 +20,9 @@ public final class PPSCheckerRunnable implements Runnable {
     public void run() {
         this.plugin.getPlayerMovePPS().forEach((uuid, packets) -> {
             Player player = Bukkit.getPlayer(uuid);
-            if (packets.get() < plugin.getInteger("maxPlayerMovePPS"))
+            int packetAmount = packets.get();
+            packets.set(0);
+            if (packetAmount < plugin.getInteger("maxPlayerMovePPS"))
                 return;
 
             Bukkit.broadcast(
@@ -35,6 +37,8 @@ public final class PPSCheckerRunnable implements Runnable {
             packets.set(0);
 
         });
+
+
 
 
     }
