@@ -30,7 +30,7 @@ public final class PlayerMoveListener implements Listener {
         
          Player player = event.getPlayer();
          AtomicInteger atomicInteger = this.plugin.getPlayerMovePPS().computeIfAbsent(player.getUniqueId(), uuid -> new AtomicInteger());
-         atomicInteger.set(atomicInteger.getAndIncrement());
+         atomicInteger.set(atomicInteger.incrementAndGet());
     }
 
 }
