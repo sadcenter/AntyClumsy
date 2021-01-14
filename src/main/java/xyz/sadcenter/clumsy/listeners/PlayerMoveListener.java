@@ -28,8 +28,16 @@ public final class PlayerMoveListener implements Listener {
              return;
         }
         
-         Player player = event.getPlayer();
-         this.plugin.getPlayerMovePPS().computeIfAbsent(player.getUniqueId(), uuid -> new AtomicInteger()).incrementAndGet();
+        Player player = event.getPlayer();
+        AtomicInteger atomicInteger = plugin.getPlayerMovePPS().get(player.getUniqueId());
+
+        if (atomicInteger == null) {
+            AtomicInteger value = new AtomicInteger();
+            plugin.getPlayerMovePPS().put(player.getUniqueId(), value);
+            atomicInteger = value;
+        }
+
+        atomicInteger.incrementAndGet();
     }
 
 }
