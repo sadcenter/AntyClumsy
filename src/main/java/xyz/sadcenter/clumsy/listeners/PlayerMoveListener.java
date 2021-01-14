@@ -21,11 +21,16 @@ public final class PlayerMoveListener implements Listener {
 
     @EventHandler
     public void run(PlayerMoveEvent event) {
-            Player player = event.getPlayer();
-            AtomicInteger atomicInteger = this.plugin.getPlayerMovePPS().computeIfAbsent(player.getUniqueId(), uuid -> new AtomicInteger());
-            atomicInteger.set(atomicInteger.get() + 1);
-
-
+        Location from = event.getFrom();
+        Location to = event.getTo();
+        
+        if (from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ()) {
+             return;
+        }
+        
+         Player player = event.getPlayer();
+         AtomicInteger atomicInteger = this.plugin.getPlayerMovePPS().computeIfAbsent(player.getUniqueId(), uuid -> new AtomicInteger());
+         atomicInteger.set(atomicInteger.getAndIncrement());
     }
 
 }
